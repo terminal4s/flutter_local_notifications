@@ -1024,6 +1024,11 @@ public class FlutterLocalNotificationsPlugin
   }
 
   private static Intent getLaunchIntent(Context context) {
+    Intent injectedIntent = CustomLaunchIntentProvider.getInstance().getIntent();
+    if (injectedIntent != null) {
+      return injectedIntent;
+    }
+
     String packageName = context.getPackageName();
     PackageManager packageManager = context.getPackageManager();
     return packageManager.getLaunchIntentForPackage(packageName);
